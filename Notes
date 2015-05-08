@@ -9,5 +9,440 @@ git clone https://github.com/sittner/ec-debianize.git
 # Copy debian folder from ec-debianize to the ethercat-hg folder
 cd ethercat-hg/debian
 ./configure -r
-unmet depends   libtool, dpatch
+dpkg-installbuilddeps
+unmet depends   linux-headers-3.8-1-xenomai.x86-amd64, libtool, dpatch
+sudo apt-get install linux-headers-3.8-1-xenomai.x86-amd64 libtool dpatch
+
+
+
+run-parts: executing /etc/kernel/header_postinst.d/dkms 3.8-1-xenomai.x86-amd64
+Error! Bad return status for module build on kernel: 3.8-1-xenomai.x86-amd64 (x86_64)
+Consult /var/lib/dkms/virtualbox-guest/4.1.18/build/make.log for more information.
+
+dpkg-buildpackage
+
+
+_RTDM -I/usr/include/xenomai -D_GNU_SOURCE -D_REENTRANT -D__XENO__ -g -O2 -MT libethercat_rtdm_la-voe_handler.lo -MD -MP -MF .deps/libethercat_rtdm_la-voe_handler.Tpo -c voe_handler.c -o libethercat_rtdm_la-voe_handler.o >/dev/null 2>&1
+mv -f .deps/libethercat_rtdm_la-voe_handler.Tpo .deps/libethercat_rtdm_la-voe_handler.Plo
+/bin/bash ../libtool --tag=CC   --mode=link gcc -fno-strict-aliasing -Wall -DUSE_RTDM -I/usr/include/xenomai -D_GNU_SOURCE -D_REENTRANT -D__XENO__  -g -O2 -version-info 1:0:0 -lrtdm -L/usr/lib -lxenomai -lpthread -lrt   -o libethercat_rtdm.la -rpath /usr/lib libethercat_rtdm_la-common.lo libethercat_rtdm_la-domain.lo libethercat_rtdm_la-master.lo libethercat_rtdm_la-reg_request.lo libethercat_rtdm_la-sdo_request.lo libethercat_rtdm_la-slave_config.lo libethercat_rtdm_la-voe_handler.lo  
+libtool: link: gcc -shared  -fPIC -DPIC  .libs/libethercat_rtdm_la-common.o .libs/libethercat_rtdm_la-domain.o .libs/libethercat_rtdm_la-master.o .libs/libethercat_rtdm_la-reg_request.o .libs/libethercat_rtdm_la-sdo_request.o .libs/libethercat_rtdm_la-slave_config.o .libs/libethercat_rtdm_la-voe_handler.o   /usr/lib/librtdm.so -L/usr/lib /usr/lib/libxenomai.so -lpthread -lrt  -O2   -Wl,-soname -Wl,libethercat_rtdm.so.1 -o .libs/libethercat_rtdm.so.1.0.0
+libtool: link: (cd ".libs" && rm -f "libethercat_rtdm.so.1" && ln -s "libethercat_rtdm.so.1.0.0" "libethercat_rtdm.so.1")
+libtool: link: (cd ".libs" && rm -f "libethercat_rtdm.so" && ln -s "libethercat_rtdm.so.1.0.0" "libethercat_rtdm.so")
+libtool: link: ar cru .libs/libethercat_rtdm.a  libethercat_rtdm_la-common.o libethercat_rtdm_la-domain.o libethercat_rtdm_la-master.o libethercat_rtdm_la-reg_request.o libethercat_rtdm_la-sdo_request.o libethercat_rtdm_la-slave_config.o libethercat_rtdm_la-voe_handler.o
+libtool: link: ranlib .libs/libethercat_rtdm.a
+libtool: link: ( cd ".libs" && rm -f "libethercat_rtdm.la" && ln -s "../libethercat_rtdm.la" "libethercat_rtdm.la" )
+make[3]: Leaving directory `/home/machinekit/ethercat-hg/lib'
+Making all in examples
+make[3]: Entering directory `/home/machinekit/ethercat-hg/examples'
+/usr/bin/make  all-recursive
+make[4]: Entering directory `/home/machinekit/ethercat-hg/examples'
+Making all in dc_user
+make[5]: Entering directory `/home/machinekit/ethercat-hg/examples/dc_user'
+gcc -DHAVE_CONFIG_H -I. -I../..    -I../../include -Wall -g -O2 -MT ec_dc_user_example-main.o -MD -MP -MF .deps/ec_dc_user_example-main.Tpo -c -o ec_dc_user_example-main.o `test -f 'main.c' || echo './'`main.c
+mv -f .deps/ec_dc_user_example-main.Tpo .deps/ec_dc_user_example-main.Po
+/bin/bash ../../libtool --tag=CC   --mode=link gcc -I../../include -Wall -g -O2 -L../../lib/.libs -lethercat -lrt  -o ec_dc_user_example ec_dc_user_example-main.o  
+libtool: link: gcc -I../../include -Wall -g -O2 -o .libs/ec_dc_user_example ec_dc_user_example-main.o  -L../../lib/.libs /home/machinekit/ethercat-hg/lib/.libs/libethercat.so -lrt
+make[5]: Leaving directory `/home/machinekit/ethercat-hg/examples/dc_user'
+Making all in user
+make[5]: Entering directory `/home/machinekit/ethercat-hg/examples/user'
+gcc -DHAVE_CONFIG_H -I. -I../..    -I../../include -Wall -g -O2 -MT ec_user_example-main.o -MD -MP -MF .deps/ec_user_example-main.Tpo -c -o ec_user_example-main.o `test -f 'main.c' || echo './'`main.c
+mv -f .deps/ec_user_example-main.Tpo .deps/ec_user_example-main.Po
+/bin/bash ../../libtool --tag=CC   --mode=link gcc -I../../include -Wall -g -O2 -L../../lib/.libs -lethercat  -o ec_user_example ec_user_example-main.o  
+libtool: link: gcc -I../../include -Wall -g -O2 -o .libs/ec_user_example ec_user_example-main.o  -L../../lib/.libs /home/machinekit/ethercat-hg/lib/.libs/libethercat.so
+make[5]: Leaving directory `/home/machinekit/ethercat-hg/examples/user'
+Making all in xenomai
+make[5]: Entering directory `/home/machinekit/ethercat-hg/examples/xenomai'
+gcc -DHAVE_CONFIG_H -I. -I../..    -Wall -I../../include -I/usr/include/xenomai -D_GNU_SOURCE -D_REENTRANT -D__XENO__ -I/usr/include/xenomai -D_GNU_SOURCE -D_REENTRANT -D__XENO__ -g -O2 -MT ec_xenomai_example-main.o -MD -MP -MF .deps/ec_xenomai_example-main.Tpo -c -o ec_xenomai_example-main.o `test -f 'main.c' || echo './'`main.c
+mv -f .deps/ec_xenomai_example-main.Tpo .deps/ec_xenomai_example-main.Po
+/bin/bash ../../libtool --tag=CC   --mode=link gcc -Wall -I../../include -I/usr/include/xenomai -D_GNU_SOURCE -D_REENTRANT -D__XENO__ -I/usr/include/xenomai -D_GNU_SOURCE -D_REENTRANT -D__XENO__ -g -O2 -L../../lib/.libs -lethercat_rtdm -lnative -L/usr/lib -lxenomai -lpthread -lrt -lrtdm -L/usr/lib -lxenomai -lpthread -lrt  -o ec_xenomai_example ec_xenomai_example-main.o  
+libtool: link: gcc -Wall -I../../include -I/usr/include/xenomai -D_GNU_SOURCE -D_REENTRANT -D__XENO__ -I/usr/include/xenomai -D_GNU_SOURCE -D_REENTRANT -D__XENO__ -g -O2 -o .libs/ec_xenomai_example ec_xenomai_example-main.o  -L../../lib/.libs /home/machinekit/ethercat-hg/lib/.libs/libethercat_rtdm.so /usr/lib/libnative.so -L/usr/lib /usr/lib/librtdm.so /usr/lib/libxenomai.so -lpthread -lrt
+make[5]: Leaving directory `/home/machinekit/ethercat-hg/examples/xenomai'
+Making all in xenomai_posix
+make[5]: Entering directory `/home/machinekit/ethercat-hg/examples/xenomai_posix'
+gcc -DHAVE_CONFIG_H -I. -I../..    -Wall -I../../include -I/usr/include/xenomai -D_GNU_SOURCE -D_REENTRANT -D__XENO__ -I/usr/include/xenomai/posix -I/usr/include/xenomai -D_GNU_SOURCE -D_REENTRANT -D__XENO__ -g -O2 -MT ec_xenomai_posix_example-main.o -MD -MP -MF .deps/ec_xenomai_posix_example-main.Tpo -c -o ec_xenomai_posix_example-main.o `test -f 'main.c' || echo './'`main.c
+mv -f .deps/ec_xenomai_posix_example-main.Tpo .deps/ec_xenomai_posix_example-main.Po
+/bin/bash ../../libtool --tag=CC   --mode=link gcc -Wall -I../../include -I/usr/include/xenomai -D_GNU_SOURCE -D_REENTRANT -D__XENO__ -I/usr/include/xenomai/posix -I/usr/include/xenomai -D_GNU_SOURCE -D_REENTRANT -D__XENO__ -g -O2 -L../../lib/.libs -lethercat_rtdm -Wl,@/usr/lib/posix.wrappers -L/usr/lib -lpthread_rt -lxenomai -lpthread -lrt  -lrtdm -L/usr/lib -lxenomai -lpthread -lrt  -o ec_xenomai_posix_example ec_xenomai_posix_example-main.o  
+libtool: link: gcc -Wall -I../../include -I/usr/include/xenomai -D_GNU_SOURCE -D_REENTRANT -D__XENO__ -I/usr/include/xenomai/posix -I/usr/include/xenomai -D_GNU_SOURCE -D_REENTRANT -D__XENO__ -g -O2 -Wl,@/usr/lib/posix.wrappers -o .libs/ec_xenomai_posix_example ec_xenomai_posix_example-main.o  -L../../lib/.libs /home/machinekit/ethercat-hg/lib/.libs/libethercat_rtdm.so -L/usr/lib /usr/lib/libpthread_rt.so /usr/lib/librtdm.so /usr/lib/libxenomai.so -lpthread -lrt
+make[5]: Leaving directory `/home/machinekit/ethercat-hg/examples/xenomai_posix'
+make[5]: Entering directory `/home/machinekit/ethercat-hg/examples'
+make[5]: Nothing to be done for `all-am'.
+make[5]: Leaving directory `/home/machinekit/ethercat-hg/examples'
+make[4]: Leaving directory `/home/machinekit/ethercat-hg/examples'
+make[3]: Leaving directory `/home/machinekit/ethercat-hg/examples'
+make[3]: Entering directory `/home/machinekit/ethercat-hg'
+make[3]: Leaving directory `/home/machinekit/ethercat-hg'
+make[2]: Leaving directory `/home/machinekit/ethercat-hg'
+/usr/bin/make -C "/lib/modules/3.8-1-xenomai.x86-amd64/build" M="/home/machinekit/ethercat-hg" modules
+make[2]: Entering directory `/usr/src/linux-headers-3.8-1-xenomai.x86-amd64'
+  CC [M]  /home/machinekit/ethercat-hg/devices/8139too-3.8-ethercat.o
+  CC [M]  /home/machinekit/ethercat-hg/devices/e100-3.8-ethercat.o
+  CC [M]  /home/machinekit/ethercat-hg/devices/generic.o
+  CC [M]  /home/machinekit/ethercat-hg/devices/r8169-3.8-ethercat.o
+  LD [M]  /home/machinekit/ethercat-hg/devices/ec_generic.o
+  LD [M]  /home/machinekit/ethercat-hg/devices/ec_8139too.o
+  LD [M]  /home/machinekit/ethercat-hg/devices/ec_e100.o
+  LD [M]  /home/machinekit/ethercat-hg/devices/ec_r8169.o
+  CC [M]  /home/machinekit/ethercat-hg/devices/e1000/e1000_main-3.8-ethercat.o
+  CC [M]  /home/machinekit/ethercat-hg/devices/e1000/e1000_hw-3.8-ethercat.o
+  CC [M]  /home/machinekit/ethercat-hg/devices/e1000/e1000_ethtool-3.8-ethercat.o
+  CC [M]  /home/machinekit/ethercat-hg/devices/e1000/e1000_param-3.8-ethercat.o
+  LD [M]  /home/machinekit/ethercat-hg/devices/e1000/ec_e1000.o
+  CC [M]  /home/machinekit/ethercat-hg/devices/e1000e/82571-3.8-ethercat.o
+  CC [M]  /home/machinekit/ethercat-hg/devices/e1000e/ethtool-3.8-ethercat.o
+  CC [M]  /home/machinekit/ethercat-hg/devices/e1000e/ich8lan-3.8-ethercat.o
+  CC [M]  /home/machinekit/ethercat-hg/devices/e1000e/netdev-3.8-ethercat.o
+  CC [M]  /home/machinekit/ethercat-hg/devices/e1000e/param-3.8-ethercat.o
+  CC [M]  /home/machinekit/ethercat-hg/devices/e1000e/phy-3.8-ethercat.o
+  CC [M]  /home/machinekit/ethercat-hg/devices/e1000e/80003es2lan-3.8-ethercat.o
+  CC [M]  /home/machinekit/ethercat-hg/devices/e1000e/mac-3.8-ethercat.o
+  CC [M]  /home/machinekit/ethercat-hg/devices/e1000e/manage-3.8-ethercat.o
+  CC [M]  /home/machinekit/ethercat-hg/devices/e1000e/nvm-3.8-ethercat.o
+  LD [M]  /home/machinekit/ethercat-hg/devices/e1000e/ec_e1000e.o
+  CC [M]  /home/machinekit/ethercat-hg/examples/mini/mini.o
+  LD [M]  /home/machinekit/ethercat-hg/examples/mini/ec_mini.o
+  CC [M]  /home/machinekit/ethercat-hg/master/cdev.o
+  CC [M]  /home/machinekit/ethercat-hg/master/coe_emerg_ring.o
+  CC [M]  /home/machinekit/ethercat-hg/master/datagram.o
+  CC [M]  /home/machinekit/ethercat-hg/master/datagram_pair.o
+  CC [M]  /home/machinekit/ethercat-hg/master/device.o
+  CC [M]  /home/machinekit/ethercat-hg/master/domain.o
+  CC [M]  /home/machinekit/ethercat-hg/master/fmmu_config.o
+  CC [M]  /home/machinekit/ethercat-hg/master/foe_request.o
+  CC [M]  /home/machinekit/ethercat-hg/master/fsm_change.o
+  CC [M]  /home/machinekit/ethercat-hg/master/fsm_coe.o
+  CC [M]  /home/machinekit/ethercat-hg/master/fsm_foe.o
+  CC [M]  /home/machinekit/ethercat-hg/master/fsm_master.o
+  CC [M]  /home/machinekit/ethercat-hg/master/fsm_pdo.o
+  CC [M]  /home/machinekit/ethercat-hg/master/fsm_pdo_entry.o
+  CC [M]  /home/machinekit/ethercat-hg/master/fsm_sii.o
+  CC [M]  /home/machinekit/ethercat-hg/master/fsm_slave.o
+  CC [M]  /home/machinekit/ethercat-hg/master/fsm_slave_config.o
+  CC [M]  /home/machinekit/ethercat-hg/master/fsm_slave_scan.o
+  CC [M]  /home/machinekit/ethercat-hg/master/fsm_soe.o
+  CC [M]  /home/machinekit/ethercat-hg/master/ioctl.o
+  CC [M]  /home/machinekit/ethercat-hg/master/mailbox.o
+  CC [M]  /home/machinekit/ethercat-hg/master/master.o
+  CC [M]  /home/machinekit/ethercat-hg/master/module.o
+  CC [M]  /home/machinekit/ethercat-hg/master/pdo.o
+  CC [M]  /home/machinekit/ethercat-hg/master/pdo_entry.o
+  CC [M]  /home/machinekit/ethercat-hg/master/pdo_list.o
+  CC [M]  /home/machinekit/ethercat-hg/master/reg_request.o
+  CC [M]  /home/machinekit/ethercat-hg/master/sdo.o
+  CC [M]  /home/machinekit/ethercat-hg/master/sdo_entry.o
+  CC [M]  /home/machinekit/ethercat-hg/master/sdo_request.o
+  CC [M]  /home/machinekit/ethercat-hg/master/slave.o
+  CC [M]  /home/machinekit/ethercat-hg/master/slave_config.o
+  CC [M]  /home/machinekit/ethercat-hg/master/soe_errors.o
+  CC [M]  /home/machinekit/ethercat-hg/master/soe_request.o
+  CC [M]  /home/machinekit/ethercat-hg/master/sync.o
+  CC [M]  /home/machinekit/ethercat-hg/master/sync_config.o
+  CC [M]  /home/machinekit/ethercat-hg/master/voe_handler.o
+  CC [M]  /home/machinekit/ethercat-hg/master/ethernet.o
+  CC [M]  /home/machinekit/ethercat-hg/master/rtdm.o
+  CC [M]  /home/machinekit/ethercat-hg/master/rtdm-ioctl.o
+  LD [M]  /home/machinekit/ethercat-hg/master/ec_master.o
+  Building modules, stage 2.
+  MODPOST 8 modules
+  CC      /home/machinekit/ethercat-hg/devices/e1000/ec_e1000.mod.o
+  LD [M]  /home/machinekit/ethercat-hg/devices/e1000/ec_e1000.ko
+  CC      /home/machinekit/ethercat-hg/devices/e1000e/ec_e1000e.mod.o
+  LD [M]  /home/machinekit/ethercat-hg/devices/e1000e/ec_e1000e.ko
+  CC      /home/machinekit/ethercat-hg/devices/ec_8139too.mod.o
+  LD [M]  /home/machinekit/ethercat-hg/devices/ec_8139too.ko
+  CC      /home/machinekit/ethercat-hg/devices/ec_e100.mod.o
+  LD [M]  /home/machinekit/ethercat-hg/devices/ec_e100.ko
+  CC      /home/machinekit/ethercat-hg/devices/ec_generic.mod.o
+  LD [M]  /home/machinekit/ethercat-hg/devices/ec_generic.ko
+  CC      /home/machinekit/ethercat-hg/devices/ec_r8169.mod.o
+  LD [M]  /home/machinekit/ethercat-hg/devices/ec_r8169.ko
+  CC      /home/machinekit/ethercat-hg/examples/mini/ec_mini.mod.o
+  LD [M]  /home/machinekit/ethercat-hg/examples/mini/ec_mini.ko
+  CC      /home/machinekit/ethercat-hg/master/ec_master.mod.o
+  LD [M]  /home/machinekit/ethercat-hg/master/ec_master.ko
+make[2]: Leaving directory `/usr/src/linux-headers-3.8-1-xenomai.x86-amd64'
+make[1]: Leaving directory `/home/machinekit/ethercat-hg'
+touch build-stamp
+ fakeroot debian/rules binary
+dh_testdir
+dh_testroot
+dh_installdirs
+/usr/bin/make DESTDIR=/home/machinekit/ethercat-hg/debian/tmp install
+make[1]: Entering directory `/home/machinekit/ethercat-hg'
+/usr/bin/make  install-recursive
+make[2]: Entering directory `/home/machinekit/ethercat-hg'
+Making install in include
+make[3]: Entering directory `/home/machinekit/ethercat-hg/include'
+make[4]: Entering directory `/home/machinekit/ethercat-hg/include'
+make[4]: Nothing to be done for `install-exec-am'.
+ /bin/mkdir -p '/home/machinekit/ethercat-hg/debian/tmp/usr/include'
+ /usr/bin/install -c -m 644 ecrt.h ectty.h '/home/machinekit/ethercat-hg/debian/tmp/usr/include'
+make[4]: Leaving directory `/home/machinekit/ethercat-hg/include'
+make[3]: Leaving directory `/home/machinekit/ethercat-hg/include'
+Making install in script
+make[3]: Entering directory `/home/machinekit/ethercat-hg/script'
+/usr/bin/make  install-recursive
+make[4]: Entering directory `/home/machinekit/ethercat-hg/script'
+Making install in init.d
+make[5]: Entering directory `/home/machinekit/ethercat-hg/script/init.d'
+/usr/bin/make  install-am
+make[6]: Entering directory `/home/machinekit/ethercat-hg/script/init.d'
+make[7]: Entering directory `/home/machinekit/ethercat-hg/script/init.d'
+make[7]: Nothing to be done for `install-exec-am'.
+ /bin/mkdir -p '/home/machinekit/ethercat-hg/debian/tmp/etc/init.d'
+ /usr/bin/install -c ethercat '/home/machinekit/ethercat-hg/debian/tmp/etc/init.d'
+make[7]: Leaving directory `/home/machinekit/ethercat-hg/script/init.d'
+make[6]: Leaving directory `/home/machinekit/ethercat-hg/script/init.d'
+make[5]: Leaving directory `/home/machinekit/ethercat-hg/script/init.d'
+Making install in sysconfig
+make[5]: Entering directory `/home/machinekit/ethercat-hg/script/sysconfig'
+make[6]: Entering directory `/home/machinekit/ethercat-hg/script/sysconfig'
+make[6]: Nothing to be done for `install-exec-am'.
+ /bin/mkdir -p '/home/machinekit/ethercat-hg/debian/tmp/etc/sysconfig'
+ /usr/bin/install -c -m 644 ethercat '/home/machinekit/ethercat-hg/debian/tmp/etc/sysconfig'
+make[6]: Leaving directory `/home/machinekit/ethercat-hg/script/sysconfig'
+make[5]: Leaving directory `/home/machinekit/ethercat-hg/script/sysconfig'
+make[5]: Entering directory `/home/machinekit/ethercat-hg/script'
+make[6]: Entering directory `/home/machinekit/ethercat-hg/script'
+ /bin/mkdir -p '/home/machinekit/ethercat-hg/debian/tmp/etc'
+ /usr/bin/install -c -m 644 ethercat.conf '/home/machinekit/ethercat-hg/debian/tmp/etc'
+ /bin/mkdir -p '/home/machinekit/ethercat-hg/debian/tmp/usr/sbin'
+ /usr/bin/install -c ethercatctl '/home/machinekit/ethercat-hg/debian/tmp/usr/sbin'
+ /bin/mkdir -p '/home/machinekit/ethercat-hg/debian/tmp/usr/lib/systemd/system'
+ /usr/bin/install -c -m 644 ethercat.service '/home/machinekit/ethercat-hg/debian/tmp/usr/lib/systemd/system'
+make[6]: Leaving directory `/home/machinekit/ethercat-hg/script'
+make[5]: Leaving directory `/home/machinekit/ethercat-hg/script'
+make[4]: Leaving directory `/home/machinekit/ethercat-hg/script'
+make[3]: Leaving directory `/home/machinekit/ethercat-hg/script'
+Making install in devices
+make[3]: Entering directory `/home/machinekit/ethercat-hg/devices'
+/usr/bin/make  install-recursive
+make[4]: Entering directory `/home/machinekit/ethercat-hg/devices'
+Making install in ccat
+make[5]: Entering directory `/home/machinekit/ethercat-hg/devices/ccat'
+/usr/bin/make  install-am
+make[6]: Entering directory `/home/machinekit/ethercat-hg/devices/ccat'
+make[7]: Entering directory `/home/machinekit/ethercat-hg/devices/ccat'
+make[7]: Nothing to be done for `install-exec-am'.
+make[7]: Nothing to be done for `install-data-am'.
+make[7]: Leaving directory `/home/machinekit/ethercat-hg/devices/ccat'
+make[6]: Leaving directory `/home/machinekit/ethercat-hg/devices/ccat'
+make[5]: Leaving directory `/home/machinekit/ethercat-hg/devices/ccat'
+Making install in e1000
+make[5]: Entering directory `/home/machinekit/ethercat-hg/devices/e1000'
+/usr/bin/make  install-am
+make[6]: Entering directory `/home/machinekit/ethercat-hg/devices/e1000'
+make[7]: Entering directory `/home/machinekit/ethercat-hg/devices/e1000'
+make[7]: Nothing to be done for `install-exec-am'.
+make[7]: Nothing to be done for `install-data-am'.
+make[7]: Leaving directory `/home/machinekit/ethercat-hg/devices/e1000'
+make[6]: Leaving directory `/home/machinekit/ethercat-hg/devices/e1000'
+make[5]: Leaving directory `/home/machinekit/ethercat-hg/devices/e1000'
+Making install in e1000e
+make[5]: Entering directory `/home/machinekit/ethercat-hg/devices/e1000e'
+/usr/bin/make  install-am
+make[6]: Entering directory `/home/machinekit/ethercat-hg/devices/e1000e'
+make[7]: Entering directory `/home/machinekit/ethercat-hg/devices/e1000e'
+make[7]: Nothing to be done for `install-exec-am'.
+make[7]: Nothing to be done for `install-data-am'.
+make[7]: Leaving directory `/home/machinekit/ethercat-hg/devices/e1000e'
+make[6]: Leaving directory `/home/machinekit/ethercat-hg/devices/e1000e'
+make[5]: Leaving directory `/home/machinekit/ethercat-hg/devices/e1000e'
+make[5]: Entering directory `/home/machinekit/ethercat-hg/devices'
+make[6]: Entering directory `/home/machinekit/ethercat-hg/devices'
+make[6]: Nothing to be done for `install-exec-am'.
+make[6]: Nothing to be done for `install-data-am'.
+make[6]: Leaving directory `/home/machinekit/ethercat-hg/devices'
+make[5]: Leaving directory `/home/machinekit/ethercat-hg/devices'
+make[4]: Leaving directory `/home/machinekit/ethercat-hg/devices'
+make[3]: Leaving directory `/home/machinekit/ethercat-hg/devices'
+Making install in master
+make[3]: Entering directory `/home/machinekit/ethercat-hg/master'
+/usr/bin/make  install-am
+make[4]: Entering directory `/home/machinekit/ethercat-hg/master'
+make[5]: Entering directory `/home/machinekit/ethercat-hg/master'
+make[5]: Nothing to be done for `install-exec-am'.
+make[5]: Nothing to be done for `install-data-am'.
+make[5]: Leaving directory `/home/machinekit/ethercat-hg/master'
+make[4]: Leaving directory `/home/machinekit/ethercat-hg/master'
+make[3]: Leaving directory `/home/machinekit/ethercat-hg/master'
+Making install in tool
+make[3]: Entering directory `/home/machinekit/ethercat-hg/tool'
+/bin/bash ../libtool --tag=CXX   --mode=link g++ -I../include -I../master -Wall -DREV=`if test -s ../revision; then cat ../revision; else hg id -i .. 2>/dev/null || echo "unknown"; fi` -fno-strict-aliasing -g -O2   -o ethercat ../master/soe_errors.o ethercat-Command.o ethercat-CommandAlias.o ethercat-CommandCStruct.o ethercat-CommandConfig.o ethercat-CommandData.o ethercat-CommandDebug.o ethercat-CommandDomains.o ethercat-CommandDownload.o ethercat-CommandFoeRead.o ethercat-CommandFoeWrite.o ethercat-CommandGraph.o ethercat-CommandMaster.o ethercat-CommandPdos.o ethercat-CommandRegRead.o ethercat-CommandRegWrite.o ethercat-CommandRescan.o ethercat-CommandSdos.o ethercat-CommandSiiRead.o ethercat-CommandSiiWrite.o ethercat-CommandSlaves.o ethercat-CommandSoeRead.o ethercat-CommandSoeWrite.o ethercat-CommandStates.o ethercat-CommandUpload.o ethercat-CommandVersion.o ethercat-CommandXml.o ethercat-DataTypeHandler.o ethercat-FoeCommand.o ethercat-MasterDevice.o ethercat-NumberListParser.o ethercat-SdoCommand.o ethercat-SoeCommand.o ethercat-main.o ethercat-sii_crc.o ethercat-CommandEoe.o  
+libtool: link: g++ -I../include -I../master -Wall -DREV=4b0b906df1b4+ -fno-strict-aliasing -g -O2 -o ethercat ../master/soe_errors.o ethercat-Command.o ethercat-CommandAlias.o ethercat-CommandCStruct.o ethercat-CommandConfig.o ethercat-CommandData.o ethercat-CommandDebug.o ethercat-CommandDomains.o ethercat-CommandDownload.o ethercat-CommandFoeRead.o ethercat-CommandFoeWrite.o ethercat-CommandGraph.o ethercat-CommandMaster.o ethercat-CommandPdos.o ethercat-CommandRegRead.o ethercat-CommandRegWrite.o ethercat-CommandRescan.o ethercat-CommandSdos.o ethercat-CommandSiiRead.o ethercat-CommandSiiWrite.o ethercat-CommandSlaves.o ethercat-CommandSoeRead.o ethercat-CommandSoeWrite.o ethercat-CommandStates.o ethercat-CommandUpload.o ethercat-CommandVersion.o ethercat-CommandXml.o ethercat-DataTypeHandler.o ethercat-FoeCommand.o ethercat-MasterDevice.o ethercat-NumberListParser.o ethercat-SdoCommand.o ethercat-SoeCommand.o ethercat-main.o ethercat-sii_crc.o ethercat-CommandEoe.o 
+make[4]: Entering directory `/home/machinekit/ethercat-hg/tool'
+ /bin/mkdir -p '/home/machinekit/ethercat-hg/debian/tmp/usr/bin'
+  /bin/bash ../libtool   --mode=install /usr/bin/install -c ethercat '/home/machinekit/ethercat-hg/debian/tmp/usr/bin'
+libtool: install: /usr/bin/install -c ethercat /home/machinekit/ethercat-hg/debian/tmp/usr/bin/ethercat
+make[4]: Nothing to be done for `install-data-am'.
+make[4]: Leaving directory `/home/machinekit/ethercat-hg/tool'
+make[3]: Leaving directory `/home/machinekit/ethercat-hg/tool'
+Making install in lib
+make[3]: Entering directory `/home/machinekit/ethercat-hg/lib'
+make[4]: Entering directory `/home/machinekit/ethercat-hg/lib'
+ /bin/mkdir -p '/home/machinekit/ethercat-hg/debian/tmp/usr/lib'
+ /bin/bash ../libtool   --mode=install /usr/bin/install -c   libethercat.la libethercat_rtdm.la '/home/machinekit/ethercat-hg/debian/tmp/usr/lib'
+libtool: install: /usr/bin/install -c .libs/libethercat.so.1.0.0 /home/machinekit/ethercat-hg/debian/tmp/usr/lib/libethercat.so.1.0.0
+libtool: install: (cd /home/machinekit/ethercat-hg/debian/tmp/usr/lib && { ln -s -f libethercat.so.1.0.0 libethercat.so.1 || { rm -f libethercat.so.1 && ln -s libethercat.so.1.0.0 libethercat.so.1; }; })
+libtool: install: (cd /home/machinekit/ethercat-hg/debian/tmp/usr/lib && { ln -s -f libethercat.so.1.0.0 libethercat.so || { rm -f libethercat.so && ln -s libethercat.so.1.0.0 libethercat.so; }; })
+libtool: install: /usr/bin/install -c .libs/libethercat.lai /home/machinekit/ethercat-hg/debian/tmp/usr/lib/libethercat.la
+libtool: install: /usr/bin/install -c .libs/libethercat_rtdm.so.1.0.0 /home/machinekit/ethercat-hg/debian/tmp/usr/lib/libethercat_rtdm.so.1.0.0
+libtool: install: (cd /home/machinekit/ethercat-hg/debian/tmp/usr/lib && { ln -s -f libethercat_rtdm.so.1.0.0 libethercat_rtdm.so.1 || { rm -f libethercat_rtdm.so.1 && ln -s libethercat_rtdm.so.1.0.0 libethercat_rtdm.so.1; }; })
+libtool: install: (cd /home/machinekit/ethercat-hg/debian/tmp/usr/lib && { ln -s -f libethercat_rtdm.so.1.0.0 libethercat_rtdm.so || { rm -f libethercat_rtdm.so && ln -s libethercat_rtdm.so.1.0.0 libethercat_rtdm.so; }; })
+libtool: install: /usr/bin/install -c .libs/libethercat_rtdm.lai /home/machinekit/ethercat-hg/debian/tmp/usr/lib/libethercat_rtdm.la
+libtool: install: /usr/bin/install -c .libs/libethercat.a /home/machinekit/ethercat-hg/debian/tmp/usr/lib/libethercat.a
+libtool: install: chmod 644 /home/machinekit/ethercat-hg/debian/tmp/usr/lib/libethercat.a
+libtool: install: ranlib /home/machinekit/ethercat-hg/debian/tmp/usr/lib/libethercat.a
+libtool: install: /usr/bin/install -c .libs/libethercat_rtdm.a /home/machinekit/ethercat-hg/debian/tmp/usr/lib/libethercat_rtdm.a
+libtool: install: chmod 644 /home/machinekit/ethercat-hg/debian/tmp/usr/lib/libethercat_rtdm.a
+libtool: install: ranlib /home/machinekit/ethercat-hg/debian/tmp/usr/lib/libethercat_rtdm.a
+libtool: install: warning: remember to run `libtool --finish /usr/lib'
+make[4]: Nothing to be done for `install-data-am'.
+make[4]: Leaving directory `/home/machinekit/ethercat-hg/lib'
+make[3]: Leaving directory `/home/machinekit/ethercat-hg/lib'
+Making install in examples
+make[3]: Entering directory `/home/machinekit/ethercat-hg/examples'
+/usr/bin/make  install-recursive
+make[4]: Entering directory `/home/machinekit/ethercat-hg/examples'
+Making install in dc_user
+make[5]: Entering directory `/home/machinekit/ethercat-hg/examples/dc_user'
+make[6]: Entering directory `/home/machinekit/ethercat-hg/examples/dc_user'
+make[6]: Nothing to be done for `install-exec-am'.
+make[6]: Nothing to be done for `install-data-am'.
+make[6]: Leaving directory `/home/machinekit/ethercat-hg/examples/dc_user'
+make[5]: Leaving directory `/home/machinekit/ethercat-hg/examples/dc_user'
+Making install in user
+make[5]: Entering directory `/home/machinekit/ethercat-hg/examples/user'
+make[6]: Entering directory `/home/machinekit/ethercat-hg/examples/user'
+make[6]: Nothing to be done for `install-exec-am'.
+make[6]: Nothing to be done for `install-data-am'.
+make[6]: Leaving directory `/home/machinekit/ethercat-hg/examples/user'
+make[5]: Leaving directory `/home/machinekit/ethercat-hg/examples/user'
+Making install in xenomai
+make[5]: Entering directory `/home/machinekit/ethercat-hg/examples/xenomai'
+make[6]: Entering directory `/home/machinekit/ethercat-hg/examples/xenomai'
+make[6]: Nothing to be done for `install-exec-am'.
+make[6]: Nothing to be done for `install-data-am'.
+make[6]: Leaving directory `/home/machinekit/ethercat-hg/examples/xenomai'
+make[5]: Leaving directory `/home/machinekit/ethercat-hg/examples/xenomai'
+Making install in xenomai_posix
+make[5]: Entering directory `/home/machinekit/ethercat-hg/examples/xenomai_posix'
+make[6]: Entering directory `/home/machinekit/ethercat-hg/examples/xenomai_posix'
+make[6]: Nothing to be done for `install-exec-am'.
+make[6]: Nothing to be done for `install-data-am'.
+make[6]: Leaving directory `/home/machinekit/ethercat-hg/examples/xenomai_posix'
+make[5]: Leaving directory `/home/machinekit/ethercat-hg/examples/xenomai_posix'
+make[5]: Entering directory `/home/machinekit/ethercat-hg/examples'
+make[6]: Entering directory `/home/machinekit/ethercat-hg/examples'
+make[6]: Nothing to be done for `install-exec-am'.
+make[6]: Nothing to be done for `install-data-am'.
+make[6]: Leaving directory `/home/machinekit/ethercat-hg/examples'
+make[5]: Leaving directory `/home/machinekit/ethercat-hg/examples'
+make[4]: Leaving directory `/home/machinekit/ethercat-hg/examples'
+make[3]: Leaving directory `/home/machinekit/ethercat-hg/examples'
+make[3]: Entering directory `/home/machinekit/ethercat-hg'
+make[4]: Entering directory `/home/machinekit/ethercat-hg'
+make[4]: Nothing to be done for `install-exec-am'.
+make[4]: Nothing to be done for `install-data-am'.
+make[4]: Leaving directory `/home/machinekit/ethercat-hg'
+make[3]: Leaving directory `/home/machinekit/ethercat-hg'
+make[2]: Leaving directory `/home/machinekit/ethercat-hg'
+make[1]: Leaving directory `/home/machinekit/ethercat-hg'
+/usr/bin/make INSTALL_MOD_PATH=/home/machinekit/ethercat-hg/debian/tmp modules_install
+make[1]: Entering directory `/home/machinekit/ethercat-hg'
+/usr/bin/make -C "/lib/modules/3.8-1-xenomai.x86-amd64/build" M="/home/machinekit/ethercat-hg" \
+		INSTALL_MOD_DIR="ethercat" modules_install
+make[2]: Entering directory `/usr/src/linux-headers-3.8-1-xenomai.x86-amd64'
+  INSTALL /home/machinekit/ethercat-hg/devices/e1000/ec_e1000.ko
+Can't open perl script "/usr/src/linux-headers-3.8-1-common-xenomai.x86/scripts/sign-file": No such file or directory
+  INSTALL /home/machinekit/ethercat-hg/devices/e1000e/ec_e1000e.ko
+Can't open perl script "/usr/src/linux-headers-3.8-1-common-xenomai.x86/scripts/sign-file": No such file or directory
+  INSTALL /home/machinekit/ethercat-hg/devices/ec_8139too.ko
+Can't open perl script "/usr/src/linux-headers-3.8-1-common-xenomai.x86/scripts/sign-file": No such file or directory
+  INSTALL /home/machinekit/ethercat-hg/devices/ec_e100.ko
+Can't open perl script "/usr/src/linux-headers-3.8-1-common-xenomai.x86/scripts/sign-file": No such file or directory
+  INSTALL /home/machinekit/ethercat-hg/devices/ec_generic.ko
+Can't open perl script "/usr/src/linux-headers-3.8-1-common-xenomai.x86/scripts/sign-file": No such file or directory
+  INSTALL /home/machinekit/ethercat-hg/devices/ec_r8169.ko
+Can't open perl script "/usr/src/linux-headers-3.8-1-common-xenomai.x86/scripts/sign-file": No such file or directory
+  INSTALL /home/machinekit/ethercat-hg/examples/mini/ec_mini.ko
+Can't open perl script "/usr/src/linux-headers-3.8-1-common-xenomai.x86/scripts/sign-file": No such file or directory
+  INSTALL /home/machinekit/ethercat-hg/master/ec_master.ko
+Can't open perl script "/usr/src/linux-headers-3.8-1-common-xenomai.x86/scripts/sign-file": No such file or directory
+  DEPMOD  3.8-1-xenomai.x86-amd64
+make[2]: Leaving directory `/usr/src/linux-headers-3.8-1-xenomai.x86-amd64'
+make[1]: Leaving directory `/home/machinekit/ethercat-hg'
+rm -f debian/tmp/usr/sbin/ethercatctl 
+mv debian/tmp/etc/sysconfig debian/tmp/etc/default
+cp -dR debian/extras/* debian/tmp
+mkdir -p debian/tmp/usr/realtime-3.8-1-xenomai.x86-amd64/modules/ethercat
+cp Module.symvers debian/tmp/usr/realtime-3.8-1-xenomai.x86-amd64/modules/ethercat
+dh_install --sourcedir=debian/tmp
+dh_testdir
+dh_testroot
+dh_installchangelogs
+dh_installdocs
+dh_installman
+dh_link
+dh_strip
+dh_makeshlibs
+dh_installdeb
+dh_shlibdeps
+dpkg-shlibdeps: warning: package could avoid a useless dependency if debian/etherlabmaster/usr/lib/libethercat_rtdm.so.1.0.0 was not linked against libxenomai.so.0 (it uses none of the library's symbols)
+dpkg-shlibdeps: warning: package could avoid a useless dependency if debian/etherlabmaster/usr/lib/libethercat_rtdm.so.1.0.0 was not linked against librt.so.1 (it uses none of the library's symbols)
+dpkg-shlibdeps: warning: package could avoid a useless dependency if debian/etherlabmaster/usr/lib/libethercat_rtdm.so.1.0.0 was not linked against libpthread.so.0 (it uses none of the library's symbols)
+dh_gencontrol
+dh_md5sums
+dh_builddeb
+dpkg-deb: building package `etherlabmaster' in `../etherlabmaster_1.5.2+hg4b0b90_amd64.deb'.
+dpkg-deb: building package `etherlabmaster-dev' in `../etherlabmaster-dev_1.5.2+hg4b0b90_amd64.deb'.
+ dpkg-genchanges  >../etherlabmaster_1.5.2+hg4b0b90_amd64.changes
+dpkg-genchanges: including full source code in upload
+ dpkg-source --after-build ethercat-hg
+dpkg-buildpackage: full upload; Debian-native package (full source is included)
+machinekit@debian:~/ethercat-hg$ 
+
+
+cd ..
+sudo dpkg -i etherlabmaster_1.5.2+hg4b0b90_amd64.deb
+
+
+Selecting previously unselected package etherlabmaster.
+(Reading database ... 188011 files and directories currently installed.)
+Unpacking etherlabmaster (from etherlabmaster_1.5.2+hg4b0b90_amd64.deb) ...
+Setting up etherlabmaster (1.5.2+hg4b0b90) ...
+Updating EtherCAT master confiuration
+update-initramfs: deferring update (trigger activated)
+done.
+Processing triggers for initramfs-tools ...
+update-initramfs: Generating /boot/initrd.img-3.8-1-xenomai.x86-amd64
+machinekit@debian:~$ 
+
+# Find NIC Mac ADDR
+machinekit@debian:~$ sudo ifconfig -a
+eth0      Link encap:Ethernet  HWaddr 08:00:27:91:d8:df 
+
+# Edit ethercat config file
+
+sudo gedit /etc/default/ethercat 
+
+#Set Mac Addr 
+MASTER0_DEVICE="08:00:27:91:d8:df"
+# Set Driver
+DEVICE_MODULES="e1000"
+
+#Save changes
+
+#
+
+machinekit@debian:~$ sudo dpkg -i etherlabmaster-dev_1.5.2+hg4b0b90_amd64.deb
+
+
+Selecting previously unselected package etherlabmaster-dev.
+(Reading database ... 188038 files and directories currently installed.)
+Unpacking etherlabmaster-dev (from etherlabmaster-dev_1.5.2+hg4b0b90_amd64.deb) ...
+Setting up etherlabmaster-dev (1.5.2+hg4b0b90) ...
+machinekit@debian:~$ 
+
+# Reboot machine.
+
 
