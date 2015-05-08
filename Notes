@@ -1,1 +1,13 @@
 http://lists.etherlab.org/pipermail/etherlab-dev/2014/000368.html
+
+sudo apt-get install mercurial
+hg clone http://hg.code.sf.net/p/etherlabmaster/code ethercat-hg
+cd ethercat-hg
+hg update stable-1.5
+cd ..
+git clone https://github.com/sittner/ec-debianize.git
+# Copy debian folder from ec-debianize to the ethercat-hg folder
+cd ethercat-hg/debian
+./configure -r
+unmet depends   libtool, dpatch
+
